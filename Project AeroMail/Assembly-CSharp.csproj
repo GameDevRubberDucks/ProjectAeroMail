@@ -706,6 +706,12 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Repos/ProjectAeroMail/Project AeroMail/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Polybrush">
+      <HintPath>C:/Repos/ProjectAeroMail/Project AeroMail/Library/ScriptAssemblies/Unity.Polybrush.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Polybrush.Editor">
+      <HintPath>C:/Repos/ProjectAeroMail/Project AeroMail/Library/ScriptAssemblies/Unity.Polybrush.Editor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
