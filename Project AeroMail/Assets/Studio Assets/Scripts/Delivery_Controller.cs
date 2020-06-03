@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Assertions;
 using System.Collections.Generic;
 
 public class Delivery_Controller : MonoBehaviour
@@ -20,6 +19,9 @@ public class Delivery_Controller : MonoBehaviour
     //--- Unity Methods ---//
     private void Awake()
     {
+        // Init the private variables
+        m_onTargetZoneChanged = new Delivery_ZoneChangeEvent();
+
         // Activate the first delivery
         ActivateDelivery(0);
     }
@@ -42,16 +44,25 @@ public class Delivery_Controller : MonoBehaviour
     //--- Methods ---//
     public void NextDelivery()
     {
-        // Activate the next delivery in the sequence
-        // TODO: Do something special if that is the end of the deliveries (ex: show game over?)
-        ActivateDelivery(m_activeID + 1);
+        // Determine the next delivery ID in the sequence
+        int nextDeliveryID = m_activeID + 1;
+
+        // If this is the end of the deliveries, do something special
+        // Otherwise, simply begin the next delivery
+        if (nextDeliveryID >= m_allDeliveries.Count)
+        {
+            // TODO: Add feedback
+            Debug.Log("All deliveries completed");
+        }
+        else
+        {
+            // Activate the next delivery
+            ActivateDelivery(nextDeliveryID);
+        }      
     }
 
     public void ActivateDelivery(int _id)
     {
-        // Ensure the new ID is in the correct range
-        Assert.IsTrue(_id >= 0 && _id < m_allDeliveries.Count, "_id must be a valid index for m_allDeliveries");
-
         // Set the new delivery ID
         m_activeID = _id;
 
@@ -98,8 +109,15 @@ public class Delivery_Controller : MonoBehaviour
         get => m_targetZone;
         set
         {
+            // Disable the previous zone's camera
+            if (m_targetZone != null)
+                m_targetZone.ToggleZoneCamera(false);
+
             // Store the new target zone value
             m_targetZone = value;
+
+            // Enable the new zone's camera
+            m_targetZone.ToggleZoneCamera(true);
 
             // Trigger the event to indicate that the target zone has been updated
             m_onTargetZoneChanged.Invoke(m_targetZone);
