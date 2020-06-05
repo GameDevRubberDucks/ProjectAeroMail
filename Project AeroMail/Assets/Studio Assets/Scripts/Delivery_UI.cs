@@ -45,9 +45,12 @@ public class Delivery_UI : MonoBehaviour
 
     public void ShowTargetImage()
     {
+        // Can only reset the animation if in the end state and not in any transtitions to / from it
+        bool canTriggerAnim = m_animZoneCamView.GetCurrentAnimatorStateInfo(0).IsName("DeliveryZoneImage_Exit");
+        canTriggerAnim = canTriggerAnim && !m_animZoneCamView.IsInTransition(0);
+
         // Trigger the photo's animation cycle again to show the photo on the UI
-        // But only do this if the animation is finished playing and so its holding on the exit state
-        if (m_animZoneCamView.GetCurrentAnimatorStateInfo(0).IsName("DeliveryZoneImage_Exit"))
+        if (canTriggerAnim)
             m_animZoneCamView.SetTrigger("ShowPhoto");
     }
 }
