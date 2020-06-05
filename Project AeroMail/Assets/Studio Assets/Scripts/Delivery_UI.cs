@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class Delivery_UI : MonoBehaviour
 {
     //--- Public Variables ---//
     [Header("Target Camera UI")]
     public Animator m_animZoneCamView;
+    public TextMeshProUGUI m_animZoneLabel;
 
 
 
@@ -40,7 +41,8 @@ public class Delivery_UI : MonoBehaviour
         // Get the zone's camera so we can set it up correctly
         Camera zoneCam = _newZone.m_zoneCamera;
 
-        Debug.Log(_newZone.gameObject.name);
+        // Update the text on the polaroid to indicate if it is a pickup or a dropoff zone
+        m_animZoneLabel.text = (_newZone.m_isStartZone) ? "Pickup Point" : "Drop-Off Point";
     }
 
     public void ShowTargetImage()

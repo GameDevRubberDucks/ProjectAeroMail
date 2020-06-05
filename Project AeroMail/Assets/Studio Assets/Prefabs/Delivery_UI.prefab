@@ -436,3 +436,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_animZoneCamView: {fileID: 858836076378126623}
+  m_animZoneLabel: {fileID: 858836075478068568}

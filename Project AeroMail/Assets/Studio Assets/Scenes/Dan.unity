@@ -553,6 +553,11 @@ PrefabInstance:
       propertyPath: m_TargetTexture
       value: 
       objectReference: {fileID: 8400000, guid: 21abe32274028e24f89ed21d40f82baf, type: 2}
+    - target: {fileID: 8072514770513448174, guid: f5783266eb2d6c44aa2f45aa81107ae8,
+        type: 3}
+      propertyPath: m_isStartZone
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5783266eb2d6c44aa2f45aa81107ae8, type: 3}
 --- !u!4 &162302097 stripped
@@ -1682,6 +1687,11 @@ PrefabInstance:
       propertyPath: m_TargetTexture
       value: 
       objectReference: {fileID: 8400000, guid: 21abe32274028e24f89ed21d40f82baf, type: 2}
+    - target: {fileID: 8072514770513448174, guid: f5783266eb2d6c44aa2f45aa81107ae8,
+        type: 3}
+      propertyPath: m_isStartZone
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5783266eb2d6c44aa2f45aa81107ae8, type: 3}
 --- !u!4 &814115188 stripped
@@ -2738,6 +2748,11 @@ PrefabInstance:
       propertyPath: m_TargetTexture
       value: 
       objectReference: {fileID: 8400000, guid: 21abe32274028e24f89ed21d40f82baf, type: 2}
+    - target: {fileID: 8072514770513448174, guid: f5783266eb2d6c44aa2f45aa81107ae8,
+        type: 3}
+      propertyPath: m_isStartZone
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5783266eb2d6c44aa2f45aa81107ae8, type: 3}
 --- !u!4 &1491879576 stripped
@@ -2996,6 +3011,11 @@ PrefabInstance:
       propertyPath: m_TargetTexture
       value: 
       objectReference: {fileID: 8400000, guid: 21abe32274028e24f89ed21d40f82baf, type: 2}
+    - target: {fileID: 8072514770513448174, guid: f5783266eb2d6c44aa2f45aa81107ae8,
+        type: 3}
+      propertyPath: m_isStartZone
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5783266eb2d6c44aa2f45aa81107ae8, type: 3}
 --- !u!4 &1634238895 stripped
