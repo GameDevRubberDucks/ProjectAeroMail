@@ -43,7 +43,7 @@ public class PlayerControllerScript : MonoBehaviour
         controls.PlayerController.Roll.performed += ctx => rollCheck = ctx.ReadValue<float>();
         controls.PlayerController.Yaw.performed += ctx => yawCheck = ctx.ReadValue<float>();
         controls.PlayerController.Pitch.performed += ctx => pitchCheck = ctx.ReadValue<float>();
-        rBody = GetComponentInParent<Rigidbody>();
+        rBody = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -64,7 +64,6 @@ public class PlayerControllerScript : MonoBehaviour
 
         yaw = yawCheck * yawSpeed * Time.deltaTime * transform.right;
         pitch = pitchCheck * pitchSpeed * Time.deltaTime * transform.up;
-        roll = rollCheck * rollSpeed * Time.deltaTime * transform.forward;
 
         rollAngle -= rollCheck * rollSpeed * Time.deltaTime;
         moveDirection += pitch + yaw;
