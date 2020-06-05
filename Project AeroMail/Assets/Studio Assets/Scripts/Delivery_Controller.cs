@@ -119,15 +119,8 @@ public class Delivery_Controller : MonoBehaviour
         get => m_targetZone;
         set
         {
-            // Disable the previous zone's camera
-            if (m_targetZone != null)
-                m_targetZone.ToggleZoneCamera(false);
-
             // Store the new target zone value
             m_targetZone = value;
-
-            // Enable the new zone's camera
-            m_targetZone.ToggleZoneCamera(true);
 
             // Trigger the event to indicate that the target zone has been updated
             OnTargetZoneChanged.Invoke(m_targetZone);

@@ -38,8 +38,12 @@ public class Delivery_UI : MonoBehaviour
     //--- Methods ---//
     public void OnNewTargetZone(Delivery_Zone _newZone)
     {
-        // Get the zone's camera so we can set it up correctly
+        // Get the zone's camera
         Camera zoneCam = _newZone.m_zoneCamera;
+
+        // Force the camera to render one frame so that it updates the render texture
+        // This can be done even if the camera is disabled
+        zoneCam.Render();
 
         // Update the text on the polaroid to indicate if it is a pickup or a dropoff zone
         m_animZoneLabel.text = (_newZone.m_isStartZone) ? "Pickup Point" : "Drop-Off Point";
