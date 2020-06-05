@@ -66,6 +66,7 @@
     <Compile Include="Assets\Studio Assets\Scripts\Delivery.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Controller.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Helpers.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\Delivery_UI.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Zone.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Temp\Temp_Movement.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />

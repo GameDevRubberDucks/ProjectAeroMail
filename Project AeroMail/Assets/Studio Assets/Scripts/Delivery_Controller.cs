@@ -20,7 +20,9 @@ public class Delivery_Controller : MonoBehaviour
     private void Awake()
     {
         // Init the private variables
-        m_onTargetZoneChanged = new Delivery_ZoneChangeEvent();
+        m_activeDelivery = null;
+        m_targetZone = null;
+        m_activeID = 0;
 
         // Activate the first delivery
         ActivateDelivery(0);
@@ -36,7 +38,7 @@ public class Delivery_Controller : MonoBehaviour
     private void OnDisable()
     {
         // Clear all of the listeners that are left on the events
-        m_onTargetZoneChanged.RemoveAllListeners();
+        OnTargetZoneChanged.RemoveAllListeners();
     }
 
 
@@ -101,7 +103,15 @@ public class Delivery_Controller : MonoBehaviour
     //--- Setters and Getters ---//
     public Delivery_ZoneChangeEvent OnTargetZoneChanged
     {
-        get => m_onTargetZoneChanged;
+        get
+        {
+            // Ensure the event has been initialized first
+            if (m_onTargetZoneChanged == null)
+                m_onTargetZoneChanged = new Delivery_ZoneChangeEvent();
+
+            // Return the event object
+            return m_onTargetZoneChanged;
+        } 
     }
 
     public Delivery_Zone TargetZone
@@ -120,7 +130,7 @@ public class Delivery_Controller : MonoBehaviour
             m_targetZone.ToggleZoneCamera(true);
 
             // Trigger the event to indicate that the target zone has been updated
-            m_onTargetZoneChanged.Invoke(m_targetZone);
+            OnTargetZoneChanged.Invoke(m_targetZone);
         }
     }
 }
