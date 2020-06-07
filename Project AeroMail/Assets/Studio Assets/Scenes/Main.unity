@@ -4398,7 +4398,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967662826}
-  m_LocalRotation: {x: 0.27232718, y: 2.1365239e-16, z: -6.046879e-17, w: 0.9622047}
+  m_LocalRotation: {x: 0.27232718, y: 0, z: 0, w: 0.9622047}
   m_LocalPosition: {x: 0, y: 33.145, z: -13.7369995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4548,7 +4548,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1041242473, guid: 750cb80a4417ccd4fbf16c1e0947bd76, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000080839175
+      value: 0.000000008083919
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041242473, guid: 750cb80a4417ccd4fbf16c1e0947bd76, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000029837427
       objectReference: {fileID: 0}
     - target: {fileID: 183929358910958989, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
         type: 3}
@@ -4610,6 +4614,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5185831241669891018, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185831241669891018, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
+        type: 3}
+      propertyPath: yawSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185831241669891018, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
+        type: 3}
+      propertyPath: pitchSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185831241669891018, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
+        type: 3}
+      propertyPath: rollSpeed
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 5185831241669891022, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
         type: 3}
       propertyPath: m_allDeliveries.Array.data[0].m_startZone
@@ -4620,5 +4644,10 @@ PrefabInstance:
       propertyPath: m_allDeliveries.Array.data[0].m_endZone
       value: 
       objectReference: {fileID: 96723711}
+    - target: {fileID: 5484527645375066026, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 750cb80a4417ccd4fbf16c1e0947bd76, type: 3}

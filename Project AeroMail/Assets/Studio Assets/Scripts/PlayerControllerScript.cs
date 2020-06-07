@@ -16,10 +16,10 @@ public class PlayerControllerScript : MonoBehaviour
     //---Private Variables---//
     private Rigidbody rBody;
 
-    private float movementSpeed = 100.0f;
-    private float yawSpeed = 100.0f;
-    private float pitchSpeed = 100.0f;
-    private float rollSpeed = 400.0f;
+    public float movementSpeed = 100.0f;
+    public float yawSpeed = 100.0f;
+    public float pitchSpeed = 100.0f;
+    public float rollSpeed = 400.0f;
 
     //---Controls Input Variables---///
     private Vector2 yawPitch;
@@ -33,7 +33,6 @@ public class PlayerControllerScript : MonoBehaviour
     private Vector3 moveDirection = new Vector3(0.0f, 0.0f, 0.0f);
     private float rollAngle;
 
-    [SerializeField] private CinemachineFreeLook cameraFL;
 
     // Start is called before the first frame update
     void Awake()
@@ -51,7 +50,7 @@ public class PlayerControllerScript : MonoBehaviour
         controls.PlayerController.Enable();
     }
 
-    private void Disable()
+    private void OnDisable()
     {
         controls.PlayerController.Disable();
     }
@@ -69,6 +68,10 @@ public class PlayerControllerScript : MonoBehaviour
         moveDirection += pitch + yaw;
         transform.rotation = Quaternion.LookRotation(moveDirection);
         transform.rotation *= Quaternion.AngleAxis(rollAngle, Vector3.forward);
+
+        //Calculation the momentum
+        MomentumCalculation();
+
         //Make this plane move forward
         Movement();
     }
@@ -78,6 +81,37 @@ public class PlayerControllerScript : MonoBehaviour
         rBody.velocity = transform.forward * movementSpeed;
     }
 
+    private void MomentumCalculation()
+    {
+        //Based on angle from direction from a plane
+        //|d dot u|
+        //---------
+        //|d| dot |u|
+
+        //Where d is the direction of the plane and u is the plane
+        //We can use the normal of the plane to find the complmentary angle or the prjection vector on the plane
+
+        //First we must normalize the velocity vector to get the direction 
+        Vector3 normVel = Vector3.Normalize(rBody.velocity);
+
+        //Find the angle from the direction to the plane
+        float angleInRads = Mathf.Asin((Mathf.Abs((normVel.x * Vector3.up.x) +
+                                           (normVel.y * Vector3.up.y) +
+                                           (normVel.z * Vector3.up.z)) / 
+                                           (Mathf.Abs(Mathf.Sqrt(Mathf.Pow(normVel.x,2)+
+                                                                Mathf.Pow(normVel.y, 2)+
+                                                                Mathf.Pow(normVel.z, 2)) 
+                                                                *
+                                                     Mathf.Sqrt(Mathf.Pow(Vector3.up.x, 2) +
+                                                                Mathf.Pow(Vector3.up.y, 2) +
+                                                                Mathf.Pow(Vector3.up.z, 2))))));
+
+        //Convert the angle in Radians to Degrees
+        float angleInDegs = angleInRads * 180 / Mathf.PI;
+        Debug.Log(angleInDegs);
+
+        //Todo calculate when the facing down or up
+    }
 
 
 
