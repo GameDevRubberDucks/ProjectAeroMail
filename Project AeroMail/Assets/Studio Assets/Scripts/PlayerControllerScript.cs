@@ -8,28 +8,56 @@ using UnityEngine;
 public class PlayerControllerScript : MonoBehaviour
 {
 
-    //---Public Variables---//
-
-    public InputMaster controls;
-
-
     //---Private Variables---//
     private Rigidbody rBody;
+    private InputMaster controls;
 
-    public float movementSpeed = 100.0f;
+    //---Speed Variables---//
+    [Header("Player Movement Controller")]
+    [Tooltip("Controls the default speed of the plane")]
+    public float movementSpeed = 150.0f; //What is the base movement speed
+    [Tooltip("Displays the planes current speed")]
+    public float currentSpeed = 0.0f; //What is out current speed
+    [Tooltip("What is the planes maximum Speed")]
+    public float maxSpeed = 300.0f; //The max speed we can reach
+    [Tooltip("Controls how fast plane yaws")]
     public float yawSpeed = 100.0f;
+    [Tooltip("Controls how fast plane pitchs")]
     public float pitchSpeed = 100.0f;
-    public float rollSpeed = 400.0f;
+    [Tooltip("Controls how fast plane rolls")]
+    public float rollSpeed = 200.0f;
+
+    //---Momentum Variables--//
+    [Header("Player Momentum Controller")]
+    [Tooltip("COntrols how fast the player accelerates when going up (Higher the number the faster they slow down)")]
+    public float accelerationUp = 5.0f; //Acceleration for when we are going up, seemed to be too high if it was the same as down
+    [Tooltip("Controls how fast the player accelerates when going down (Higher the numbe the faster they speed up)")]
+    public float accelerationDown = 5.0f; //Acceleration for when going down
+    private float acceleration = 0.0f; //Variable to hold acceleration
+    private const float maxAngle = 90.0f; // What is the maximum angle the plane can go to until it is accelerating the fastest
+
+    //---Tipping Variables---///
+    [Header("Player Tipping Controller")]
+    [Tooltip("Controls speed at which the plane starts to tip")]
+    public float tippingPoint = 15.0f;//At what speed will the plane start tipping
+    [Tooltip("Controls how fast the plane tips")]
+    public float tippingSpeed = 0.1f;//How fast the plane tips over with it lost speed
+    private float step = 0.0f; //This is to make the plane lerp to the downward postiion if their speed decrease too low
+
+    //---Vent Variables---///
+    //[Header("Vent Manipulation Controller")]
+    //[Tooltip("Controls how hard the vent pushes the player")]
+    //public float ventPower = 50.0f;
 
     //---Controls Input Variables---///
     private Vector2 yawPitch;
     private float rollCheck;
     private float pitchCheck;
     private float yawCheck;
-    //---Calculation Variables---///
+
+    //---Flight Variables---///
     private Vector3 pitch = new Vector3(0.0f,0.0f,0.0f);
     private Vector3 yaw = new Vector3(0.0f, 0.0f, 0.0f);
-    private Vector3 roll = new Vector3(0.0f, 0.0f, 0.0f);
     private Vector3 moveDirection = new Vector3(0.0f, 0.0f, 0.0f);
     private float rollAngle;
 
@@ -43,6 +71,11 @@ public class PlayerControllerScript : MonoBehaviour
         controls.PlayerController.Yaw.performed += ctx => yawCheck = ctx.ReadValue<float>();
         controls.PlayerController.Pitch.performed += ctx => pitchCheck = ctx.ReadValue<float>();
         rBody = GetComponent<Rigidbody>();
+
+
+        //Start plane off at the regular speed
+        currentSpeed = movementSpeed;
+        rBody.velocity = transform.forward * currentSpeed;
     }
 
     private void OnEnable()
@@ -55,7 +88,7 @@ public class PlayerControllerScript : MonoBehaviour
         controls.PlayerController.Disable();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
     
         //When we have a proper model we can change trasnform.right to transform.forward
@@ -72,13 +105,28 @@ public class PlayerControllerScript : MonoBehaviour
         //Calculation the momentum
         MomentumCalculation();
 
+
+        //Does it need to start lerping downward
+        if (currentSpeed < tippingPoint)
+        {
+            reachedTippingPoint();
+        }
+        else
+        {
+            step = 0.0f;
+        }
         //Make this plane move forward
         Movement();
     }
 
+
     private void Movement()
     {
-        rBody.velocity = transform.forward * movementSpeed;
+        if (currentSpeed < maxSpeed || acceleration < 0.0f)
+        {
+            currentSpeed += acceleration;
+        }
+        rBody.velocity = transform.forward * currentSpeed;
     }
 
     private void MomentumCalculation()
@@ -108,36 +156,61 @@ public class PlayerControllerScript : MonoBehaviour
 
         //Convert the angle in Radians to Degrees
         float angleInDegs = angleInRads * 180 / Mathf.PI;
-        Debug.Log(angleInDegs);
+        //Debug.Log(angleInDegs);
 
-        //Todo calculate when the facing down or up
+
+        //Check to see if the plane if going up or down with the new angle
+        float upOrDown = normVel.y;
+        //If we are going up or down and the pplane is angled more than 15 degrees that start accelerating. Gives a bit of leeway to  fly straight
+        if (upOrDown > 0.0f && angleInDegs > 15.0)
+        {
+            acceleration = -accelerationUp * (angleInDegs / maxAngle);
+
+        }
+        else if (upOrDown < 0.0f && angleInDegs > 15.0)
+        {
+            acceleration = accelerationDown * (angleInDegs / maxAngle);
+        }
+        else
+        {
+            acceleration = 0.0f;
+        }
+    }
+
+    private void reachedTippingPoint()
+    {
+        step += tippingSpeed * Time.deltaTime;
+        Vector3 lerpDirection = Vector3.Lerp(Vector3.Normalize(moveDirection), Vector3.down, step);
+        transform.rotation = Quaternion.LookRotation(lerpDirection);
+        transform.rotation *= Quaternion.AngleAxis(rollAngle, Vector3.forward);
     }
 
 
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log(other.contacts[0].normal);
+        Vector3 colDirection = Vector3.Lerp(Vector3.Normalize(moveDirection), other.contacts[0].normal, 100.0f);
+        transform.rotation = Quaternion.LookRotation(colDirection);
+        transform.rotation *= Quaternion.AngleAxis(rollAngle, Vector3.forward);
+    }
 
 
-    //---Delete Later if not used---//
+    private void OnTriggerEnter(Collider vent)
+    {
+        VentScript ventProperty = vent.GetComponent<VentScript>();
+        Debug.Log(ventProperty.ventPower);
+        if (vent.tag == "Vent")
+        {
+            Vector3 ventDirection = Vector3.Lerp(Vector3.Normalize(moveDirection), vent.transform.up, 0.7f);
+            transform.rotation = Quaternion.LookRotation(ventDirection);
+            transform.rotation *= Quaternion.AngleAxis(rollAngle, Vector3.forward);
+            acceleration = ventProperty.ventPower;
+        }
+    }
 
-    //public void OnYaw(InputAction.CallbackContext context)
-    //{
-    //    Debug.Log(context.ReadValue<float>());
-    //    //Controls the Yaw
-    //    yaw = context.ReadValue<float>() * yawSpeed * Time.deltaTime * transform.right;
-    //}
-    //public void OnPitch(InputAction.CallbackContext context)
-    //{
-    //    //Controls the Pitch
-    //    Debug.Log("And The Pitch");
-    //
-    //    pitch = context.ReadValue<float>() * pitchSpeed * Time.deltaTime  * transform.up;
-    //    
-    //}
-    //public void OnRoll(InputAction.CallbackContext context)
-    //{
-    //    Debug.Log("They See Me Rollin'");
-    //    //this.transform.Rotate(0.0f,0.0f, context.ReadValue<float>() * rollSpeed * Time.deltaTime);
-    //    roll = context.ReadValue<float>() * rollSpeed * Time.deltaTime * transform.forward;
-    //
-    //}
+    private void OnTriggerExit(Collider other)
+    {
+        acceleration = 0.0f;
+    }
 
 }
