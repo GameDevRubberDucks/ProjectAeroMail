@@ -71,6 +71,7 @@
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Zone.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\PlayerControllerPhysicsScript.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\PlayerControllerScript.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\Player_Particles.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Sample.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Temp\Temp_Movement.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\VentScript.cs" />
