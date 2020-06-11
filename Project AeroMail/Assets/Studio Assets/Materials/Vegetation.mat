@@ -67,6 +67,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_25B8ACCA: 3.96
+    - Vector1_AE6D872E: 20
+    - Vector1_CEA80F6: 0.75
     - Vector1_F2175555: 0.06
     - _AlphaClip: 0
     - _Blend: 0
@@ -97,3 +99,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _playerPosition: {r: 0, g: 0, b: 0, a: 0}
