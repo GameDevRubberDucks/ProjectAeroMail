@@ -72,6 +72,7 @@
     <Compile Include="Assets\Studio Assets\Scripts\PlayerControllerPhysicsScript.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\PlayerControllerScript.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Temp\Temp_Movement.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\Vegetation_ShaderController.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\VentScript.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
