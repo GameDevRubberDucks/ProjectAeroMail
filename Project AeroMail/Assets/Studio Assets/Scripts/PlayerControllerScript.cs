@@ -11,6 +11,7 @@ public class PlayerControllerScript : MonoBehaviour
     //---Private Variables---//
     private Rigidbody rBody;
     private InputMaster controls;
+    private Camera_Follow cam;
 
     //---Speed Variables---//
     [Header("Player Movement Controller")]
@@ -50,7 +51,6 @@ public class PlayerControllerScript : MonoBehaviour
     //public float ventPower = 50.0f;
 
     //---Controls Input Variables---///
-    private Vector2 yawPitch;
     private float rollCheck;
     private float pitchCheck;
     private float yawCheck;
@@ -76,6 +76,9 @@ public class PlayerControllerScript : MonoBehaviour
         //Start plane off at the regular speed
         currentSpeed = movementSpeed;
         rBody.velocity = transform.forward * currentSpeed;
+
+        //Get the camera
+        cam = FindObjectOfType<Camera_Follow>();
     }
 
     private void OnEnable()
@@ -97,15 +100,26 @@ public class PlayerControllerScript : MonoBehaviour
         yaw = yawCheck * yawSpeed * Time.deltaTime * transform.right;
         pitch = pitchCheck * pitchSpeed * Time.deltaTime * transform.up;
 
-        rollAngle -= rollCheck * rollSpeed * Time.deltaTime;
         moveDirection += pitch + yaw;
         transform.rotation = Quaternion.LookRotation(moveDirection);
+        
+        /*
+        //Make the plane roll
+        //rollAngle -= rollCheck * rollSpeed * Time.deltaTime;
+        //My attempt of doing the animation through code
+        if(rollAngle <= 14.0f)
+        {
+            rollAngle -= yawCheck * rollSpeed * Time.deltaTime;
+        }
         transform.rotation *= Quaternion.AngleAxis(rollAngle, Vector3.forward);
+        */
 
         //Calculation the momentum
-        MomentumCalculation();
+        //MomentumCalculation();
 
 
+        /*
+        //This doesnt need to be here since there is not momentum or speed lose/gain
         //Does it need to start lerping downward
         if (currentSpeed < tippingPoint)
         {
@@ -115,29 +129,36 @@ public class PlayerControllerScript : MonoBehaviour
         {
             step = 0.0f;
         }
+        */
+        
         //Make this plane move forward
         Movement();
+
+        InputCheck();
+
     }
 
 
     private void Movement()
     {
-        if (currentSpeed < maxSpeed || acceleration < 0.0f)
-        {
-            currentSpeed += acceleration;
-        }
+        //This adds on the acceleration assuming its not that maxSpeed already and if the acceleration is greater than 0
+        //if (currentSpeed < maxSpeed || acceleration < 0.0f)
+        //{
+        //    currentSpeed += acceleration;
+        //}
         rBody.velocity = transform.forward * currentSpeed;
     }
 
     private void MomentumCalculation()
     {
-        //Based on angle from direction from a plane
-        //|d dot u|
-        //---------
-        //|d| dot |u|
+        /*Based on angle from direction from a plane
+        |d dot u|
+        ---------
+        |d| dot |u|
 
         //Where d is the direction of the plane and u is the plane
         //We can use the normal of the plane to find the complmentary angle or the prjection vector on the plane
+        */
 
         //First we must normalize the velocity vector to get the direction 
         Vector3 normVel = Vector3.Normalize(rBody.velocity);
@@ -179,15 +200,31 @@ public class PlayerControllerScript : MonoBehaviour
 
     private void reachedTippingPoint()
     {
+        //Lerps the plane to downward position
         step += tippingSpeed * Time.deltaTime;
         Vector3 lerpDirection = Vector3.Lerp(Vector3.Normalize(moveDirection), Vector3.down, step);
         transform.rotation = Quaternion.LookRotation(lerpDirection);
         transform.rotation *= Quaternion.AngleAxis(rollAngle, Vector3.forward);
     }
 
+    private void InputCheck()
+    {
+        if (rollCheck == 0.0f && pitchCheck == 0.0f && yawCheck == 0.0f)
+        {
+            cam.gettingInput = false;
+        }
+        else
+        {
+            cam.gettingInput = true;
+        }
+    }
+
+
+    //---Collision Functions---//
 
     private void OnCollisionEnter(Collision other)
     {
+        //Attempt to fix collision
         Debug.Log(other.contacts[0].normal);
         Vector3 colDirection = Vector3.Lerp(Vector3.Normalize(moveDirection), other.contacts[0].normal, 100.0f);
         transform.rotation = Quaternion.LookRotation(colDirection);
@@ -197,14 +234,23 @@ public class PlayerControllerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider vent)
     {
+
         VentScript ventProperty = vent.GetComponent<VentScript>();
         Debug.Log(ventProperty.ventPower);
         if (vent.tag == "Vent")
         {
+            /*Momentum base implementation of the vents
             Vector3 ventDirection = Vector3.Lerp(Vector3.Normalize(moveDirection), vent.transform.up, 0.7f);
             transform.rotation = Quaternion.LookRotation(ventDirection);
             transform.rotation *= Quaternion.AngleAxis(rollAngle, Vector3.forward);
             acceleration = ventProperty.ventPower;
+            */
+
+            //Transform base vent implementation
+            //Debug.Log(vent.transform.up * ventProperty.ventPower);
+            //Vector3 ventDirection = Vector3.Lerp( transform.position, transform.position + (vent.transform.up * ventProperty.ventPower), 0.7f);
+            transform.position += vent.transform.up * ventProperty.ventPower;
+
         }
     }
 
