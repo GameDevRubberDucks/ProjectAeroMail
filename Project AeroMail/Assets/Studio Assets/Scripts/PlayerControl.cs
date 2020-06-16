@@ -13,8 +13,19 @@ public class PlayerControl : MonoBehaviour
 
 
 
+    //--- Private Variables ---//
+    private float currentPitch;
+
+
+
     //--- Unity Methods ---//
-    void Update()
+    private void Awake()
+    {
+        // Init the private variables
+        currentPitch = 0.0f;
+    }
+
+    private void Update()
     { 
         // Handle the Yaw and Pitch movements
         HandleYaw();
@@ -52,14 +63,13 @@ public class PlayerControl : MonoBehaviour
         pitchInput = (isInvertedPitch) ? -pitchInput : pitchInput;
         float pitchAmount = pitchInput * pitchSpeed * Time.deltaTime;
 
-        // Rotate according to the pitch
+        // Since we are using +ve and -ve angles, its best to store the pitch separately and then have unity convert it
+        // Calculate and clamp the new value between -ve and +ve absolute maxes
+        currentPitch += pitchAmount;
+        currentPitch = Mathf.Clamp(currentPitch, -pitchAbsClampAmount, pitchAbsClampAmount);
+
+        // Apply the new pitch value and have Unity convert it to the right angle automatically
         Vector3 rotAngles = transform.localRotation.eulerAngles;
-        float newPitchYaw = rotAngles.x + pitchAmount;
-
-        // Clamp the pitch to prevent going straight up or down
-        if (newPitchYaw > 180.0f)
-            newPitchYaw = Mathf.Clamp(-(360.0f - newPitchYaw), -pitchAbsClampAmount, pitchAbsClampAmount);
-
-        transform.localRotation = Quaternion.Euler(newPitchYaw, rotAngles.y, rotAngles.z);
+        transform.localRotation = Quaternion.Euler(currentPitch, rotAngles.y, rotAngles.z);
     }
 }
