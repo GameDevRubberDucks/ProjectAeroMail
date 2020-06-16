@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerControl : MonoBehaviour
     public float rollMax = 60.0f;
     public bool isInvertedPitch = true;
     public float pitchAbsClampAmount = 80;
+    public CinemachineFreeLook cmFL;
 
 
 
@@ -30,6 +32,9 @@ public class PlayerControl : MonoBehaviour
         // Handle the Yaw and Pitch movements
         HandleYaw();
         HandlePitch();
+
+        // Toggles free look by pressing space
+        InputCheck();
 
         // Animate the roll effect
         Vector3 rotAngles = bodyAnimationObj.localRotation.eulerAngles;
@@ -71,5 +76,23 @@ public class PlayerControl : MonoBehaviour
         // Apply the new pitch value and have Unity convert it to the right angle automatically
         Vector3 rotAngles = transform.localRotation.eulerAngles;
         transform.localRotation = Quaternion.Euler(currentPitch, rotAngles.y, rotAngles.z);
+    }
+
+    public void InputCheck()
+    {
+        bool check = Input.GetKey(KeyCode.C);
+
+        if (check)
+        {
+            cmFL.m_XAxis.m_InputAxisName = "Mouse X";
+            cmFL.m_YAxis.m_InputAxisName = "Mouse Y";
+        }
+        else
+        {
+            cmFL.m_XAxis.m_InputAxisName = null;
+            cmFL.m_YAxis.m_InputAxisName = null;
+            cmFL.m_YAxis.Value = 0.5f;
+            cmFL.m_XAxis.Value = 0.0f;
+        }
     }
 }
