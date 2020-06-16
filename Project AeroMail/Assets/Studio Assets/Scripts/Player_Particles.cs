@@ -23,7 +23,7 @@ public class Player_Particles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        trailSystems[0].time = pController.currentSpeed / timeFraction;
-        trailSystems[1].time = pController.currentSpeed / timeFraction;
+        //trailSystems[0].time = pController.currentSpeed / timeFraction;
+        //trailSystems[1].time = pController.currentSpeed / timeFraction;
     }
 }
