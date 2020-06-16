@@ -100,8 +100,20 @@ public class PlayerControllerScript : MonoBehaviour
         yaw = yawCheck * yawSpeed * Time.deltaTime * transform.right;
         pitch = pitchCheck * pitchSpeed * Time.deltaTime * transform.up;
 
+        pitch.x = Mathf.Clamp(pitch.x, -30.0f, 30.0f);
+
+
         moveDirection += pitch + yaw;
-        transform.rotation = Quaternion.LookRotation(moveDirection);
+        float maxX = Quaternion.LookRotation(moveDirection).eulerAngles.x;
+
+        if (maxX < 90 && maxX > 70 || maxX > 270 && maxX < 290)
+        {
+
+        }
+        else
+        {
+            transform.rotation = Quaternion.LookRotation(moveDirection);
+        }
         
         /*
         //Make the plane roll
