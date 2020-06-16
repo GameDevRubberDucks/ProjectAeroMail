@@ -28,8 +28,8 @@ public class Camera_Follow : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
-        Vector3 desiredPostion = playerTarget.position + offset;
+        Vector3 transformedOffset = playerTarget.TransformVector(offset);
+        Vector3 desiredPostion = playerTarget.position + transformedOffset;
         Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredPostion, smoothSpeed );
         transform.position = smoothPosition;
 
