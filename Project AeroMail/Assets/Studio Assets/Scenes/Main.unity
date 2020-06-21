@@ -599,6 +599,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d0d0709cf53034b9b5f06df0a853d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &757151031 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1415596446285381423, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
+    type: 3}
+  m_PrefabInstance: {fileID: 1415596446477303946}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &888935336
 GameObject:
   m_ObjectHideFlags: 0
@@ -4307,6 +4313,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1390469390 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1415596445637764879, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
+    type: 3}
+  m_PrefabInstance: {fileID: 1415596446477303946}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 319d2fe34a804e245819465c9505ea59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1643247989
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,6 +4430,7 @@ GameObject:
   - component: {fileID: 1967662827}
   - component: {fileID: 1967662830}
   - component: {fileID: 1967662831}
+  - component: {fileID: 1967662832}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4549,6 +4568,23 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1967662832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967662826}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac548d64066241440a20cc0be46a7534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cmFL: {fileID: 1390469390}
+  playerTarget: {fileID: 757151031}
+  gettingInput: 0
+  smoothSpeed: 0.3
+  offset: {x: 0, y: 4.6, z: -22.4}
 --- !u!1001 &147870556907259119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4640,6 +4676,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1415596445637764873, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1415596446017292413, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -4653,7 +4694,7 @@ PrefabInstance:
     - target: {fileID: 1415596446410484235, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000029837427
+      value: -0.000000029837423
       objectReference: {fileID: 0}
     - target: {fileID: 1415596447262269122, guid: 750cb80a4417ccd4fbf16c1e0947bd76,
         type: 3}
