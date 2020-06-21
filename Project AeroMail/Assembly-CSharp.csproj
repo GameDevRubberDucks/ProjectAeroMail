@@ -65,6 +65,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\InputMaster.cs" />
+<<<<<<< Updated upstream
+=======
+    <Compile Include="Assets\MouseFlight-master\Assets\MouseFlight\Demo\Scripts\Hud.cs" />
+    <Compile Include="Assets\MouseFlight-master\Assets\MouseFlight\Demo\Scripts\Plane.cs" />
+    <Compile Include="Assets\MouseFlight-master\Assets\MouseFlight\Scripts\MouseFlightController.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\CameraControl.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\Camera_Collider.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Assets\Studio Assets\Scripts\Camera_Follow.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Controller.cs" />
