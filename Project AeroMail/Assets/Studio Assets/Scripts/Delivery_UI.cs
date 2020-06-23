@@ -56,6 +56,10 @@ public class Delivery_UI : MonoBehaviour
 
         // We can't toggle the animation trigger during a transition or it will get stuck for the next go-around
         if (!m_animZoneCamView.IsInTransition(0))
-            m_animZoneCamView.SetTrigger("TogglePhoto");
+        {
+            // Should also only be able to toggle it when it is fully hidden or fully visible, not while animating 
+            if (stateInfo.IsName("DeliveryZoneImage_Visible") || stateInfo.IsName("DeliveryZoneImage_Hidden"))
+                m_animZoneCamView.SetTrigger("TogglePhoto");
+        }
     }
 }
