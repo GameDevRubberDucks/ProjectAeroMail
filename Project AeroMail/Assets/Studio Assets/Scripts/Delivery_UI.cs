@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 
 public class Delivery_UI : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class Delivery_UI : MonoBehaviour
     {
         // Press the spacebar to show the target image temporarily before having it disappear
         if (Input.GetKeyDown(KeyCode.Space))
-            ShowTargetImage();
+            ToggleTargetImage();
     }
 
 
@@ -49,14 +49,13 @@ public class Delivery_UI : MonoBehaviour
         m_animZoneLabel.text = (_newZone.m_isStartZone) ? "Pickup Point" : "Drop-Off Point";
     }
 
-    public void ShowTargetImage()
+    public void ToggleTargetImage()
     {
-        // Can only reset the animation if in the end state and not in any transtitions to / from it
-        bool canTriggerAnim = m_animZoneCamView.GetCurrentAnimatorStateInfo(0).IsName("DeliveryZoneImage_Exit");
-        canTriggerAnim = canTriggerAnim && !m_animZoneCamView.IsInTransition(0);
+        // Figure out the current state of the animation
+        var stateInfo = m_animZoneCamView.GetCurrentAnimatorStateInfo(0);
 
-        // Trigger the photo's animation cycle again to show the photo on the UI
-        if (canTriggerAnim)
-            m_animZoneCamView.SetTrigger("ShowPhoto");
+        // We can't toggle the animation trigger during a transition or it will get stuck for the next go-around
+        if (!m_animZoneCamView.IsInTransition(0))
+            m_animZoneCamView.SetTrigger("TogglePhoto");
     }
 }
