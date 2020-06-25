@@ -5,6 +5,7 @@ public class Delivery_Player : MonoBehaviour
 {
     //--- Private Variables ---//
     private Delivery_TargetChangeEvent m_OnTargetZoneChanged;
+    private Delivery_TargetListChangeEvent m_OnTargetListChanged;
     private List<Delivery_End> m_possibleTargets;
     private Delivery_End m_currentTarget;
 
@@ -18,6 +19,15 @@ public class Delivery_Player : MonoBehaviour
         CurrentTarget = null;
     }
 
+    private void Update()
+    {
+        // Use Q and E to switch between targets
+        if (Input.GetKeyDown(KeyCode.Q))
+            PrevTarget();
+        else if (Input.GetKeyDown(KeyCode.E))
+            NextTarget();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // If the object is a delivery zone, we need to handle it
@@ -29,6 +39,7 @@ public class Delivery_Player : MonoBehaviour
     {
         // Clear all of the listeners that are left on the events
         OnTargetZoneChanged.RemoveAllListeners();
+        OnTargetListChanged.RemoveAllListeners();
     }
 
 
@@ -72,6 +83,9 @@ public class Delivery_Player : MonoBehaviour
         // If there isn't a current target, this should become the new target
         if (m_currentTarget == null)
             CurrentTarget = _target;
+
+        // Invoke the event since the list changed
+        OnTargetListChanged.Invoke(m_possibleTargets.Count);
     }
 
     public void RemoveTargetFromList(Delivery_End _target)
@@ -82,24 +96,61 @@ public class Delivery_Player : MonoBehaviour
         // Remove the target from the list
         m_possibleTargets.Remove(_target);
 
-        // If there is another target we can instantly jump to, do that. Otherwise, change the target to null
-        if (m_possibleTargets.Count > 0)
+        // If the target is the active one, we need to switch to a different one
+        // Otherwise, we can stay focused on the same one
+        if (_target == m_currentTarget)
         {
-            // Go back to the previous target
-            targetIndex--;
-
-            // Wrap around if needed
-            if (targetIndex < 0)
-                targetIndex = m_possibleTargets.Count - 1;
-
-            // Set the new target
-            CurrentTarget = m_possibleTargets[targetIndex];
+            // If there is another target we can instantly jump to, do that. Otherwise, change the target to null
+            if (m_possibleTargets.Count > 0)
+            {
+                // Go back to the previous target
+                PrevTarget();
+            }
+            else
+            {
+                // There is no new target
+                CurrentTarget = null;
+            }
         }
-        else
-        {
-            // There is no new target
-            CurrentTarget = null;
-        }
+
+        // Invoke the event since the list changed
+        OnTargetListChanged.Invoke(m_possibleTargets.Count);
+    }
+
+    public void NextTarget()
+    {
+        // Ensure there is a target to change to
+        if (m_possibleTargets.Count == 0)
+            return;
+
+        // Determine the index of the next target
+        int currentIndex = m_possibleTargets.IndexOf(m_currentTarget);
+        int nextIndex = currentIndex + 1;
+
+        // Wrap the index if need be
+        if (nextIndex >= m_possibleTargets.Count)
+            nextIndex = 0;
+
+        // Change to the new target
+        CurrentTarget = m_possibleTargets[nextIndex];
+    }
+
+    public void PrevTarget()
+    {
+        // Ensure there is a target to change to
+        if (m_possibleTargets.Count == 0)
+            return;
+
+        // Determine the index of the previous target
+        int currentIndex = m_possibleTargets.IndexOf(m_currentTarget);
+        int prevIndex = currentIndex - 1;
+
+        // Wrap the index if need be
+        if (prevIndex < 0)
+            prevIndex = m_possibleTargets.Count - 1;
+
+        // Change to the new target
+        CurrentTarget = m_possibleTargets[prevIndex];
     }
 
 
@@ -115,6 +166,19 @@ public class Delivery_Player : MonoBehaviour
 
             // Return the event object
             return m_OnTargetZoneChanged;
+        }
+    }
+
+    public Delivery_TargetListChangeEvent OnTargetListChanged
+    {
+        get
+        {
+            // Ensure the event has been initialized first
+            if (m_OnTargetListChanged == null)
+                m_OnTargetListChanged = new Delivery_TargetListChangeEvent();
+
+            // Return the event object
+            return m_OnTargetListChanged;
         }
     }
 

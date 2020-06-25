@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Cinemachine;
 
-public class PlayerControl : MonoBehaviour
+public class Player_Control : MonoBehaviour
 {
     //--- Public Variables ---//
     public Transform bodyAnimationObj;
