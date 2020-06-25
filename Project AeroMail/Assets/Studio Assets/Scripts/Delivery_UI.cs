@@ -86,7 +86,7 @@ public class Delivery_UI : MonoBehaviour
     public void OnTargetListChanged(int _listCount)
     {
         // Toggle the buttons to be interactive or not if there is more than 1 target to switch between
-        m_btnPrevTarget.interactable = (_listCount > 0);
-        m_btnNextTarget.interactable = (_listCount > 0);
+        m_btnPrevTarget.interactable = (_listCount > 1);
+        m_btnNextTarget.interactable = (_listCount > 1);
     }
 }
