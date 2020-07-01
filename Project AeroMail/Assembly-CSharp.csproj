@@ -75,6 +75,7 @@
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Player.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Start.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_UI.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\HouseGenerator.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\PlayerControllerPhysicsScript.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\PlayerControllerScript.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Player_Control.cs" />
