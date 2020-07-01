@@ -9,73 +9,88 @@ public class HouseGenerator_Editor : Editor
     SerializedObject sObj;
     SerializedProperty sListProp;
 
+    GameObject previewObject;
+    Editor previewEditor;
+
+    int previewIndex = 0;
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
+        GUILayout.Space(50.0f);
+
+        HouseGenerator targetScript = (HouseGenerator)target;
+
         if (GUILayout.Button("Create Buildings"))
         {
-            HouseGenerator targetScript = (HouseGenerator)target;
             targetScript.GenerateStructures();
         }
 
         if (GUILayout.Button("Destroy Buildings"))
         {
-            HouseGenerator targetScript = (HouseGenerator)target;
             targetScript.DeleteChildren();
         }
 
         if (GUILayout.Button("Save Generated Buildings"))
         {
-            HouseGenerator targetScript = (HouseGenerator)target;
-            targetScript.SaveStructures();
+            targetScript.SaveAllStructures();
         }
 
-        //if (sObj == null)
-        //{
-        //    sObj = new SerializedObject(target);
-        //}
+        GUILayout.Space(50.0f);
 
-        //if (sListProp == null)
-        //{
-        //    sListProp = sObj.FindProperty("m_componentSets");
+        string labelContents = (previewObject != null) ? "Previewing [" + previewObject.name + "]" : "No Preview Object";
+        EditorGUILayout.LabelField(labelContents);
+        EditorGUILayout.BeginHorizontal();
+        {
+            if (GUILayout.Button("< Prev"))
+            {
+                previewIndex--;
 
-        //    if (sListProp == null)
-        //    {
-        //        sListProp = sObj.FindProperty("m_componentSets");
+                previewIndex = targetScript.WrapIdx(previewIndex);
+            }
+            else if (GUILayout.Button("Next >"))
+            {
+                previewIndex++;
 
-        //        if (sListProp == null)
-        //        {
-        //            Debug.Log("Cannot find the component list");
-        //        }
-        //    }   
-        //}
-        //else
-        //{
-        //    EditorGUILayout.BeginHorizontal();
-        //    {
-        //        EditorGUILayout.LabelField("Component Sets [" + sListProp.arraySize + "]");
-                
-        //        if (GUILayout.Button("Add New Set"))
-        //        { 
-        //            sListProp.arraySize++;
-        //        }
-        //    }
-        //    EditorGUILayout.EndHorizontal();
-        //    EditorGUILayout.Space();
+                previewIndex = targetScript.WrapIdx(previewIndex);
+            }
+        }
+        EditorGUILayout.EndHorizontal();
 
-        //    for (int i = 0; i < sListProp.arraySize; i++)
-        //    {
-        //        //var subObj = sListProp.GetArrayElementAtIndex(i).Find
-        //        //var subProp = subObj.FindProperty("m_setObjs");
-                
-        //        EditorGUILayout.LabelField("Set " + i.ToString());
+        if (previewObject != null)
+        {
+            if (GUILayout.Button("Save [" + previewObject.name + "] Individually"))
+            {
+                targetScript.SaveIndividualStructure(previewIndex, true);
+            }
+        }
+        else
+        {
+            // No object, no editor
+            if (previewEditor)
+                DestroyImmediate(previewEditor);
+        }
+        
+        if (previewObject != targetScript.GetSpawnedChild(previewIndex))
+        {
+            previewObject = targetScript.GetSpawnedChild(previewIndex);
 
-        //        EditorGUILayout.PropertyField(sListProp.GetArrayElementAtIndex(i).FindPropertyRelative("m_setObjs"));
-        //        //EditorGUILayout.PropertyField(subProp);
-        //    }
-        //}
+            if (previewEditor)
+                DestroyImmediate(previewEditor);
 
-        //sObj.ApplyModifiedProperties();
+            previewEditor = Editor.CreateEditor(previewObject);
+        }
+        if (previewEditor != null)
+        {
+            previewEditor.DrawHeader();
+            previewEditor.OnPreviewGUI(GUILayoutUtility.GetRect(500.0f, 500.0f), EditorStyles.whiteLabel);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (previewEditor)
+            DestroyImmediate(previewEditor);
     }
 }

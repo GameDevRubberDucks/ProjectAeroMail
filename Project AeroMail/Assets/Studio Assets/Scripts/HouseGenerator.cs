@@ -52,24 +52,31 @@ public class HouseGenerator : MonoBehaviour
             DestroyImmediate(obj);
     }
 
-    public void SaveStructures()
+    public void SaveIndividualStructure(int _idx, bool _showDialog = true)
+    {
+        GameObject houseObj = m_spawnedChildren[_idx];
+
+        string path = m_saveLocation;
+        string filename = houseObj.name + ".prefab";
+        string fullFilePath = path + filename;
+
+        string uniquePath = AssetDatabase.GenerateUniqueAssetPath(fullFilePath);
+
+        PrefabUtility.SaveAsPrefabAssetAndConnect(houseObj, uniquePath, InteractionMode.AutomatedAction);
+
+        if (_showDialog)
+            EditorUtility.DisplayDialog("Save Succesful For [" + filename + "]", "The object has been succesfully saved as a prefab at [" + fullFilePath + "]", "OK");
+    }
+
+    public void SaveAllStructures()
     {
         // Save all of the houses out individually into the same folder
-        foreach(GameObject houseObj in m_spawnedChildren)
-        {
-            string path = m_saveLocation;
-            string filename = houseObj.name + ".prefab";
-            string fullFilePath = path + filename;
+        for (int i = 0; i < m_spawnedChildren.Count; i++)
+            SaveIndividualStructure(i, false);
 
-            Debug.Log(fullFilePath);
+        // Show a dialog for all of them at once, instead of one at a time
+        EditorUtility.DisplayDialog("Save Succesful For All [" + m_spawnedChildren.Count + "] Objects", "The objects have been succesfully saved as individual prefabs", "OK");
 
-            string uniquePath = AssetDatabase.GenerateUniqueAssetPath(fullFilePath);
-
-            PrefabUtility.SaveAsPrefabAssetAndConnect(houseObj, uniquePath, InteractionMode.AutomatedAction);
-        }
-
-        // Show a dialog when the saving is done
-        EditorUtility.DisplayDialog("All Houses Saved", "All [" + m_spawnedChildren.Count.ToString() + "] houses were saved to [" + m_saveLocation + "]", "OK");
     }
 
     private void SpawnNewBuildings()
@@ -155,5 +162,30 @@ public class HouseGenerator : MonoBehaviour
         }
 
         return combinations;
+    }
+
+    public GameObject GetSpawnedChild(int _idx)
+    {
+        if (m_spawnedChildren == null || m_spawnedChildren.Count == 0)
+            return null;
+
+        _idx = WrapIdx(_idx);
+
+        return m_spawnedChildren[_idx];
+    }
+
+    public GameObject[] GetAllSpawnedChildren()
+    {
+        return m_spawnedChildren.ToArray();
+    }
+
+    public int WrapIdx(int _idx)
+    {
+        if (_idx < 0)
+            _idx = m_spawnedChildren.Count - 1;
+        else if (_idx >= m_spawnedChildren.Count)
+            _idx = 0;
+
+        return _idx;
     }
 }
