@@ -25,6 +25,12 @@ public class HouseGenerator_Editor : Editor
             targetScript.DeleteChildren();
         }
 
+        if (GUILayout.Button("Save Generated Buildings"))
+        {
+            HouseGenerator targetScript = (HouseGenerator)target;
+            targetScript.SaveStructures();
+        }
+
         //if (sObj == null)
         //{
         //    sObj = new SerializedObject(target);

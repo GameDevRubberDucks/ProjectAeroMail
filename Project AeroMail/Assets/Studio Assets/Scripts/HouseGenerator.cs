@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
@@ -15,6 +17,7 @@ public class ComponentSet
 
 public class HouseGenerator : MonoBehaviour
 {
+    public string m_saveLocation = "Assets/Studio Assets/Prefabs/Houses/";
     public Vector2 m_spawnOffsets = new Vector2(5.0f, 5.0f);
     public int m_gridRowLength = 10;
     public string m_namePrefixStr = "house";
@@ -22,6 +25,13 @@ public class HouseGenerator : MonoBehaviour
     public Material[] m_materials;
 
     private List<GameObject> m_spawnedChildren;
+
+    private void Awake()
+    {
+        string dataPath = Application.dataPath;
+        string combinedPath = Path.Combine(dataPath, m_saveLocation);
+        Debug.Log(combinedPath);
+    }
 
     public void GenerateStructures()
     {
@@ -40,6 +50,26 @@ public class HouseGenerator : MonoBehaviour
 
         foreach (var obj in m_spawnedChildren)
             DestroyImmediate(obj);
+    }
+
+    public void SaveStructures()
+    {
+        // Save all of the houses out individually into the same folder
+        foreach(GameObject houseObj in m_spawnedChildren)
+        {
+            string path = m_saveLocation;
+            string filename = houseObj.name + ".prefab";
+            string fullFilePath = path + filename;
+
+            Debug.Log(fullFilePath);
+
+            string uniquePath = AssetDatabase.GenerateUniqueAssetPath(fullFilePath);
+
+            PrefabUtility.SaveAsPrefabAssetAndConnect(houseObj, uniquePath, InteractionMode.AutomatedAction);
+        }
+
+        // Show a dialog when the saving is done
+        EditorUtility.DisplayDialog("All Houses Saved", "All [" + m_spawnedChildren.Count.ToString() + "] houses were saved to [" + m_saveLocation + "]", "OK");
     }
 
     private void SpawnNewBuildings()
