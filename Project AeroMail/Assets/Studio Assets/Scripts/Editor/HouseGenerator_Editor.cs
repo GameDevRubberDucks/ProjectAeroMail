@@ -1,96 +1,118 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(HouseGenerator))]
+// Custom inspector for the HouseGenerator_Controller object
+[CustomEditor(typeof(HouseGenerator_Controller))]
 public class HouseGenerator_Editor : Editor
 {
-    SerializedObject sObj;
-    SerializedProperty sListProp;
+    //--- Private Variables ---//
+    private HouseGenerator_Controller m_targetScript;
+    private GameObject m_previewObject;
+    private Editor m_previewEditor;
+    private int m_previewIndex = 0;
 
-    GameObject previewObject;
-    Editor previewEditor;
 
-    int previewIndex = 0;
 
+    //--- Unity Methods ---//
     public override void OnInspectorGUI()
     {
+        if (m_targetScript == null)
+            m_targetScript = (HouseGenerator_Controller)target;
+
+        // Use the original inspector for all of the variables that come with the original class
         DrawDefaultInspector();
+        GUILayout.Space(10.0f);
 
-        GUILayout.Space(50.0f);
+        // Generation UI Elements
+        EditorGUILayout.LabelField("Structure Generation", EditorStyles.boldLabel);
 
-        HouseGenerator targetScript = (HouseGenerator)target;
+        if (GUILayout.Button("Generate Structures"))
+            m_targetScript.GenerateStructures();
 
-        if (GUILayout.Button("Create Buildings"))
+        EditorGUI.BeginDisabledGroup(!m_targetScript.GetHasSpawnedChildren());
         {
-            targetScript.GenerateStructures();
+            EditorGUILayout.BeginHorizontal();
+            {
+                if (GUILayout.Button("Destroy Generated Structures"))
+                {
+                    m_targetScript.DeleteStructures();
+
+                    // Reset the preview index for next time we generate
+                    m_previewIndex = 0;
+                }
+
+                if (GUILayout.Button("Save Generated Structures"))
+                    m_targetScript.SaveAllStructures();
+            }
+            EditorGUILayout.EndHorizontal();
         }
+        EditorGUI.EndDisabledGroup();
+        
+        // Preview UI Elements
+        GUILayout.Space(10.0f);
+        EditorGUILayout.LabelField("Structure Preview", EditorStyles.boldLabel);
 
-        if (GUILayout.Button("Destroy Buildings"))
-        {
-            targetScript.DeleteChildren();
-        }
-
-        if (GUILayout.Button("Save Generated Buildings"))
-        {
-            targetScript.SaveAllStructures();
-        }
-
-        GUILayout.Space(50.0f);
-
-        string labelContents = (previewObject != null) ? "Previewing [" + previewObject.name + "]" : "No Preview Object";
+        string labelContents = (m_previewObject != null) ? "Previewing [" + m_previewObject.name + "]" : "No Preview Object";
         EditorGUILayout.LabelField(labelContents);
-        EditorGUILayout.BeginHorizontal();
+
+        EditorGUI.BeginDisabledGroup(m_previewObject == null);
         {
-            if (GUILayout.Button("< Prev"))
+            EditorGUILayout.BeginHorizontal();
             {
-                previewIndex--;
+                // Switch the previewed object
+                if (GUILayout.Button("< Prev"))
+                {
+                    m_previewIndex--;
 
-                previewIndex = targetScript.WrapIdx(previewIndex);
-            }
-            else if (GUILayout.Button("Next >"))
-            {
-                previewIndex++;
+                    m_previewIndex = m_targetScript.WrapIdx(m_previewIndex);
+                }
+                else if (GUILayout.Button("Next >"))
+                {
+                    m_previewIndex++;
 
-                previewIndex = targetScript.WrapIdx(previewIndex);
+                    m_previewIndex = m_targetScript.WrapIdx(m_previewIndex);
+                }
             }
+            EditorGUILayout.EndHorizontal();
+
+            // Save the previewed object
+            string saveBtnLbl = (m_previewObject != null) ? "Save [" + m_previewObject.name + "] Individually" : "Generate Structures to Save One";
+            if (GUILayout.Button(saveBtnLbl))
+                m_targetScript.SaveIndividualStructure(m_previewIndex, true);
         }
-        EditorGUILayout.EndHorizontal();
+        EditorGUI.EndDisabledGroup();
 
-        if (previewObject != null)
-        {
-            if (GUILayout.Button("Save [" + previewObject.name + "] Individually"))
-            {
-                targetScript.SaveIndividualStructure(previewIndex, true);
-            }
-        }
-        else
+        // Create or destroy the editor as needed
+        if (m_previewObject == null)
         {
             // No object, no editor
-            if (previewEditor)
-                DestroyImmediate(previewEditor);
+            if (m_previewEditor)
+                DestroyImmediate(m_previewEditor);
         }
-        
-        if (previewObject != targetScript.GetSpawnedChild(previewIndex))
+
+        // New object is set to be previewed so update the window
+        if (m_previewObject != m_targetScript.GetSpawnedChild(m_previewIndex))
         {
-            previewObject = targetScript.GetSpawnedChild(previewIndex);
+            m_previewObject = m_targetScript.GetSpawnedChild(m_previewIndex);
 
-            if (previewEditor)
-                DestroyImmediate(previewEditor);
+            if (m_previewEditor)
+                DestroyImmediate(m_previewEditor);
 
-            previewEditor = Editor.CreateEditor(previewObject);
+            m_previewEditor = Editor.CreateEditor(m_previewObject);
         }
-        if (previewEditor != null)
+
+        // Show the window if needed
+        if (m_previewEditor != null)
         {
-            previewEditor.DrawHeader();
-            previewEditor.OnPreviewGUI(GUILayoutUtility.GetRect(500.0f, 500.0f), EditorStyles.whiteLabel);
+            m_previewEditor.DrawHeader();
+            m_previewEditor.OnPreviewGUI(GUILayoutUtility.GetRect(300.0f, 300.0f), EditorStyles.whiteLabel);
         }
     }
 
     private void OnDisable()
     {
-        if (previewEditor)
-            DestroyImmediate(previewEditor);
+        // Cleanup the preview editor
+        if (m_previewEditor)
+            DestroyImmediate(m_previewEditor);
     }
 }
