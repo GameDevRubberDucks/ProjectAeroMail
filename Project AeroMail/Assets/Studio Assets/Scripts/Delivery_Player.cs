@@ -80,9 +80,8 @@ public class Delivery_Player : MonoBehaviour
         // Add the target to the list
         m_possibleTargets.Add(_target);
 
-        // If there isn't a current target, this should become the new target
-        if (m_currentTarget == null)
-            CurrentTarget = _target;
+        // This new target should always become the immediate focus
+        CurrentTarget = _target;
 
         // Invoke the event since the list changed
         OnTargetListChanged.Invoke(m_possibleTargets.Count);
