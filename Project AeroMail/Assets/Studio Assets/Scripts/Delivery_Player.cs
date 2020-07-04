@@ -6,8 +6,11 @@ public class Delivery_Player : MonoBehaviour
     //--- Private Variables ---//
     private Delivery_TargetChangeEvent m_OnTargetZoneChanged;
     private Delivery_TargetListChangeEvent m_OnTargetListChanged;
+    private Delivery_CounterChangeEvent m_OnCounterChanged;
     private List<Delivery_End> m_possibleTargets;
     private Delivery_End m_currentTarget;
+    private int m_numComplete;
+    private int m_numTotal;
 
 
 
@@ -17,6 +20,11 @@ public class Delivery_Player : MonoBehaviour
         // Init the private variables
         m_possibleTargets = new List<Delivery_End>();
         CurrentTarget = null;
+        m_numComplete = 0;
+        m_numTotal = GameObject.FindObjectsOfType<Delivery_Start>().Length;
+
+        // Trigger the UI update to show the counter for the number of deliveries
+        OnCounterChanged.Invoke(m_numComplete, m_numTotal);
     }
 
     private void Update()
@@ -114,6 +122,10 @@ public class Delivery_Player : MonoBehaviour
 
         // Invoke the event since the list changed
         OnTargetListChanged.Invoke(m_possibleTargets.Count);
+
+        // We completed another delivery so increase the counter and invoke the UI update as well
+        m_numComplete++;
+        OnCounterChanged.Invoke(m_numComplete, m_numTotal);
     }
 
     public void NextTarget()
@@ -178,6 +190,19 @@ public class Delivery_Player : MonoBehaviour
 
             // Return the event object
             return m_OnTargetListChanged;
+        }
+    }
+
+    public Delivery_CounterChangeEvent OnCounterChanged
+    {
+        get
+        {
+            // Ensure the event has been initialized first
+            if (m_OnCounterChanged == null)
+                m_OnCounterChanged = new Delivery_CounterChangeEvent();
+
+            // Return the event object
+            return m_OnCounterChanged;
         }
     }
 
