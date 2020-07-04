@@ -50,6 +50,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_E9A1981F: 0.5
+    - Vector1_EF3E5215: 20
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
