@@ -12,11 +12,15 @@ public class Player_Control : MonoBehaviour
     public bool isInvertedPitch = true;
     public float pitchAbsClampAmount = 80;
     public CinemachineFreeLook cmFL;
+    public float boostSpeedMultiplier = 2.0f;
+    public float boostYawDivisor = 2.0f;
 
 
 
     //--- Private Variables ---//
     private float currentPitch;
+    private float baseMoveSpeed;
+    private float baseYawSpeed;
 
 
 
@@ -25,6 +29,8 @@ public class Player_Control : MonoBehaviour
     {
         // Init the private variables
         currentPitch = 0.0f;
+        baseMoveSpeed = movementSpeed;
+        baseYawSpeed = yawSpeed;
     }
 
     private void Update()
@@ -35,6 +41,18 @@ public class Player_Control : MonoBehaviour
 
         // Toggles free look by pressing space
         InputCheck();
+
+        // Speedboost while holding shift
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            movementSpeed = baseMoveSpeed * boostSpeedMultiplier;
+            yawSpeed = baseYawSpeed / boostYawDivisor;
+        }
+        else
+        {
+            movementSpeed = baseMoveSpeed;
+            yawSpeed = baseYawSpeed;
+        }
 
         // Animate the roll effect
         Vector3 rotAngles = bodyAnimationObj.localRotation.eulerAngles;

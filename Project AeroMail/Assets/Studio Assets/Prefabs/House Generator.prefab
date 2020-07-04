@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2414909767703652383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2414909767703652381}
+  - component: {fileID: 2414909767703652380}
+  m_Layer: 0
+  m_Name: House Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2414909767703652381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2414909767703652383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4346, y: 0.50087184, z: 0.12521206}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2414909767703652380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2414909767703652383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8477dfd20c126054bafbe9ad35d4306c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_namePrefixStr: house
+  m_saveLocation: Assets/Studio Assets/Prefabs/Houses/
+  m_spawnOffsets: {x: 5, y: 5}
+  m_gridRowLength: 3
+  m_materials:
+  - {fileID: 2100000, guid: d7b7ffece01e2b44ab2ed1f59618c14c, type: 2}
+  m_componentSets:
+  - m_setObjs:
+    - {fileID: -927199367670048503, guid: 7a69bdff78c176c498138a82529f7f53, type: 3}
+    - {fileID: -927199367670048503, guid: 3dc635c99aa41a647aead64560bf965a, type: 3}
+    - {fileID: -927199367670048503, guid: b95c5fb15f44430459094bc75ae0ebed, type: 3}
+    - {fileID: -927199367670048503, guid: 8c4ba659db3f8274cb95244195d8f4e3, type: 3}
+    - {fileID: -927199367670048503, guid: 3fa17a6616f935d4c9b8298d5a47396b, type: 3}
+    - {fileID: -927199367670048503, guid: 6431d01f47fb6b54599286a28c153c45, type: 3}
+  - m_setObjs:
+    - {fileID: -927199367670048503, guid: 7545e2e1fdaae0743bd0f2e948ba4b30, type: 3}
+    - {fileID: -927199367670048503, guid: 4cb32e7806d9ac545b9507dde4c3e985, type: 3}
+    - {fileID: -927199367670048503, guid: 64bae823384c9a247b3e5169f061e397, type: 3}
+    - {fileID: -927199367670048503, guid: 7db58a141887fe3428d63d15c78411c3, type: 3}
+    - {fileID: -927199367670048503, guid: e34330485f3361e44be4b354f79d0e89, type: 3}
+    - {fileID: -927199367670048503, guid: 1592c19fbd19d414b80221eeb16c7346, type: 3}
