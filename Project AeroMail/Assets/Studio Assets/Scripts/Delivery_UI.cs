@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Delivery_UI : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class Delivery_UI : MonoBehaviour
     [Header("Target Change Indicators")]
     public Button m_btnPrevTarget;
     public Button m_btnNextTarget;
+
+    [Header("Counter UI")]
+    public TextMeshProUGUI m_txtCounter;
+
+    [Header("Game Over UI")]
+    public GameObject m_pnlGameOver;
 
 
 
@@ -31,6 +38,7 @@ public class Delivery_UI : MonoBehaviour
         // This way, we can update the UI anytime the target information has changed
         m_playerDelivery.OnTargetZoneChanged.AddListener(this.OnNewTargetZone);
         m_playerDelivery.OnTargetListChanged.AddListener(this.OnTargetListChanged);
+        m_playerDelivery.OnCounterChanged.AddListener(this.OnCounterChanged);
     }
 
     private void Update()
@@ -88,5 +96,32 @@ public class Delivery_UI : MonoBehaviour
         // Toggle the buttons to be interactive or not if there is more than 1 target to switch between
         m_btnPrevTarget.interactable = (_listCount > 1);
         m_btnNextTarget.interactable = (_listCount > 1);
+    }
+
+    public void OnCounterChanged(int _numComplete, int _numTotal)
+    {
+        // Update the text to show the completion amount
+        m_txtCounter.text = _numComplete.ToString() + " / " + _numTotal.ToString() + " Deliveries Complete";
+
+        // If the number has reached the end, show the game over screen as well
+        if (_numComplete == _numTotal)
+        {
+            // Show the UI and then pause the game
+            m_pnlGameOver.SetActive(true);
+            Time.timeScale = 0.0f;
+        }
+    }
+
+    public void OnContinuePlaying()
+    {
+        // Hide the game over indicator and unpause
+        m_pnlGameOver.SetActive(false);
+        Time.timeScale = 1.0f;
+    }
+
+    public void OnExitToMenu()
+    {
+        // Load the menu scene
+        SceneManager.LoadScene("Menu");
     }
 }
