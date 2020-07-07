@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
 public class Respawn_Point : MonoBehaviour
 {
     public Vector3 Position
