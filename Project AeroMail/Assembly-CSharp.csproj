@@ -70,6 +70,7 @@
     <Compile Include="Assets\Studio Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Camera_Collider.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Camera_Follow.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\CloudGenerator_Controller.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_End.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_EndActivator.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Helpers.cs" />
