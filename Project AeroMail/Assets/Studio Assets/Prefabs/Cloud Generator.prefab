@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 1660656528941347976}
   - component: {fileID: 1660656528941347977}
   - component: {fileID: 1660656528941347982}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cloud Spawn Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}

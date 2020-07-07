@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3651091398276527455}
   - component: {fileID: 3472145050442381652}
   - component: {fileID: 791526115703267531}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: EndZone_ActivationTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -602,7 +602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1437940034540311168}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Start Zone Beacon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +635,7 @@ PrefabInstance:
     - target: {fileID: -7993262820162529152, guid: 9ff5b2466f3b89e478afe95b3d617a96,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9ff5b2466f3b89e478afe95b3d617a96,
         type: 3}
@@ -726,7 +726,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 9ff5b2466f3b89e478afe95b3d617a96,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ff5b2466f3b89e478afe95b3d617a96, type: 3}
@@ -832,7 +832,7 @@ PrefabInstance:
     - target: {fileID: -7993262820162529152, guid: 9ff5b2466f3b89e478afe95b3d617a96,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9ff5b2466f3b89e478afe95b3d617a96,
         type: 3}
@@ -908,7 +908,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 9ff5b2466f3b89e478afe95b3d617a96,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ff5b2466f3b89e478afe95b3d617a96, type: 3}

@@ -16,15 +16,6 @@ public class CloudGenerator_Controller : MonoBehaviour
 
 
 
-    //--- Unity Methods ---//
-    private void Awake()
-    {
-        // Hide the cloud spawn box during play
-        m_cloudSpawnBox.GetComponent<Renderer>().enabled = false;
-    }
-
-
-
     //--- Methods ---//
     public void GenerateClouds()
     {
