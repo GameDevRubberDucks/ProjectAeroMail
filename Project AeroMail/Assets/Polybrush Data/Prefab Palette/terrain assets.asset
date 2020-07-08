@@ -13,23 +13,6 @@ MonoBehaviour:
   m_Name: terrain assets
   m_EditorClassIdentifier: 
   prefabs:
-  - gameObject: {fileID: 6031271499612359538, guid: dced1a06e2961c54f8b5d75aa38c43b2,
-      type: 3}
-    settings:
-      m_Strength: 50
-      m_RotationRangeMin: {x: 0, y: 0, z: 0}
-      m_RotationRangeMax: {x: 0, y: 0, z: 0}
-      m_ScaleRangeMin: {x: 1, y: 1, z: 1}
-      m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 1, y: 1}
-      m_UniformBool: 0
-      m_XRotationBool: 0
-      m_YRotationBool: 0
-      m_ZRotationBool: 0
-      m_XScaleBool: 0
-      m_YScaleBool: 0
-      m_ZScaleBool: 0
-    name: World_Bush_1
   - gameObject: {fileID: 4250449031951194420, guid: 3e0548f11a4fc574f9e20d961d5740b2,
       type: 3}
     settings:
@@ -47,23 +30,6 @@ MonoBehaviour:
       m_YScaleBool: 0
       m_ZScaleBool: 0
     name: World_Bush_2
-  - gameObject: {fileID: 4670381396878235313, guid: 84b0ea90c10e1f846a62934e1368ff00,
-      type: 3}
-    settings:
-      m_Strength: 50
-      m_RotationRangeMin: {x: 0, y: 0, z: 0}
-      m_RotationRangeMax: {x: 0, y: 0, z: 0}
-      m_ScaleRangeMin: {x: 1, y: 1, z: 1}
-      m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 1, y: 1}
-      m_UniformBool: 0
-      m_XRotationBool: 0
-      m_YRotationBool: 0
-      m_ZRotationBool: 0
-      m_XScaleBool: 0
-      m_YScaleBool: 0
-      m_ZScaleBool: 0
-    name: World_Crops_1
   - gameObject: {fileID: 678616722656729206, guid: 4ac80a0ea3ba04042b100b912d0caa31,
       type: 3}
     settings:
@@ -101,15 +67,15 @@ MonoBehaviour:
   - gameObject: {fileID: 4550071643192392887, guid: 8bddc1d3c653f744e90f87f759704dc2,
       type: 3}
     settings:
-      m_Strength: 10.695876
-      m_RotationRangeMin: {x: 0, y: 0, z: 0}
-      m_RotationRangeMax: {x: 0, y: 0, z: 0}
+      m_Strength: 44.896225
+      m_RotationRangeMin: {x: 258.9041, y: 0, z: 0}
+      m_RotationRangeMax: {x: 258.9041, y: 360, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 1, y: 1}
-      m_UniformBool: 0
+      m_UniformScale: {x: 10, y: 20}
+      m_UniformBool: 1
       m_XRotationBool: 0
-      m_YRotationBool: 0
+      m_YRotationBool: 1
       m_ZRotationBool: 0
       m_XScaleBool: 0
       m_YScaleBool: 0
@@ -118,15 +84,15 @@ MonoBehaviour:
   - gameObject: {fileID: 6963207448241827521, guid: 7a3b695a6097cc2408c74d4eda32480a,
       type: 3}
     settings:
-      m_Strength: 10.695876
+      m_Strength: 35.556602
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
-      m_RotationRangeMax: {x: 0, y: 0, z: 0}
+      m_RotationRangeMax: {x: 0, y: 360, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 1, y: 1}
-      m_UniformBool: 0
+      m_UniformScale: {x: 10, y: 20}
+      m_UniformBool: 1
       m_XRotationBool: 0
-      m_YRotationBool: 0
+      m_YRotationBool: 1
       m_ZRotationBool: 0
       m_XScaleBool: 0
       m_YScaleBool: 0
@@ -135,15 +101,15 @@ MonoBehaviour:
   - gameObject: {fileID: 87279822617035090, guid: eb7fda43cc9327043a8e932fd45dd7e1,
       type: 3}
     settings:
-      m_Strength: 10.695876
+      m_Strength: 48.632076
       m_RotationRangeMin: {x: 0, y: 0, z: 0}
-      m_RotationRangeMax: {x: 0, y: 0, z: 0}
+      m_RotationRangeMax: {x: 0, y: 360, z: 0}
       m_ScaleRangeMin: {x: 1, y: 1, z: 1}
       m_ScaleRangeMax: {x: 1, y: 1, z: 1}
-      m_UniformScale: {x: 1, y: 1}
-      m_UniformBool: 0
+      m_UniformScale: {x: 10, y: 20}
+      m_UniformBool: 1
       m_XRotationBool: 0
-      m_YRotationBool: 0
+      m_YRotationBool: 1
       m_ZRotationBool: 0
       m_XScaleBool: 0
       m_YScaleBool: 0
@@ -217,3 +183,20 @@ MonoBehaviour:
       m_YScaleBool: 1
       m_ZScaleBool: 0
     name: World_Tree_1
+  - gameObject: {fileID: 4670381396878235313, guid: 84b0ea90c10e1f846a62934e1368ff00,
+      type: 3}
+    settings:
+      m_Strength: 50
+      m_RotationRangeMin: {x: 0, y: 0, z: 0}
+      m_RotationRangeMax: {x: 0, y: 0, z: 0}
+      m_ScaleRangeMin: {x: 1, y: 1, z: 1}
+      m_ScaleRangeMax: {x: 1, y: 1, z: 1}
+      m_UniformScale: {x: 1, y: 1}
+      m_UniformBool: 1
+      m_XRotationBool: 0
+      m_YRotationBool: 0
+      m_ZRotationBool: 0
+      m_XScaleBool: 0
+      m_YScaleBool: 1
+      m_ZScaleBool: 0
+    name: World_Crops_1
