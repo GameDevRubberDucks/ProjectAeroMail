@@ -12,6 +12,10 @@ public class Player_Control : MonoBehaviour
     public bool isInvertedPitch = true;
     public float pitchAbsClampAmount = 80;
     public CinemachineFreeLook cmFL;
+    public float camYAxisValue = 0.5f;
+    float currentAngle = 0.0f;
+    float lastAngle = 0.0f;
+    float lerpTimer = 0.0f;
     public float boostSpeedMultiplier = 2.0f;
     public float boostYawDivisor = 2.0f;
 
@@ -85,6 +89,7 @@ public class Player_Control : MonoBehaviour
 
     public void HandlePitch()
     {
+
         // Calculate the amount of movement on the pitch
         float pitchInput = Input.GetAxis("Vertical");
         pitchInput = (isInvertedPitch) ? -pitchInput : pitchInput;
@@ -98,6 +103,19 @@ public class Player_Control : MonoBehaviour
         // Apply the new pitch value and have Unity convert it to the right angle automatically
         Vector3 rotAngles = transform.localRotation.eulerAngles;
         transform.localRotation = Quaternion.Euler(currentPitch, rotAngles.y, rotAngles.z);
+
+        lerpTimer += Time.deltaTime;
+
+        //Calculates the percent from lowest clamp pitch to highest clamp pitch
+        //camYAxisValue = (currentPitch + 75.0f) / (pitchAbsClampAmount + 75.0f);
+
+        currentAngle = (currentPitch + 75.0f) / (pitchAbsClampAmount + 75.0f);
+
+        //camYAxisValue = Mathf.Lerp(lastAngle,currentAngle, 0.001f * lerpTimer);
+        
+
+        //lastAngle = currentAngle;
+        
     }
 
     public void InputCheck()
@@ -106,14 +124,17 @@ public class Player_Control : MonoBehaviour
 
         if (check)
         {
-            cmFL.m_XAxis.m_InputAxisName = "Mouse X";
+            //cmFL.m_XAxis.m_InputAxisName = "Mouse X";
+            cmFL.m_XAxis.m_InputAxisName = "OP";
             cmFL.m_YAxis.m_InputAxisName = "Mouse Y";
+
+
         }
         else
         {
             cmFL.m_XAxis.m_InputAxisName = null;
             cmFL.m_YAxis.m_InputAxisName = null;
-            cmFL.m_YAxis.Value = 0.5f;
+            cmFL.m_YAxis.Value = currentAngle;
             cmFL.m_XAxis.Value = 0.0f;
         }
     }
