@@ -54,6 +54,10 @@ public class Player_Control : MonoBehaviour
             yawSpeed = baseYawSpeed;
         }
 
+        // Toggle the y-axis inversion by pressing 'I'
+        if (Input.GetKeyDown(KeyCode.I))
+            ToggleInvertedYAxis();
+
         // Animate the roll effect
         Vector3 rotAngles = bodyAnimationObj.localRotation.eulerAngles;
         rotAngles.z = rollMax * Input.GetAxis("Horizontal");
@@ -112,5 +116,10 @@ public class Player_Control : MonoBehaviour
             cmFL.m_YAxis.Value = 0.5f;
             cmFL.m_XAxis.Value = 0.0f;
         }
+    }
+
+    public void ToggleInvertedYAxis()
+    {
+        isInvertedPitch = !isInvertedPitch;
     }
 }

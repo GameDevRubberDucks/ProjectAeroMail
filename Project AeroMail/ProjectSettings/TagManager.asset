@@ -7,6 +7,8 @@ TagManager:
   - Vent
   - Delivery_Zone
   - Water
+  - Environment
+  - Respawn_Zone
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Skybox
   - World
   - DeliveryStartZone
-  - 
+  - EditorOnly
   - 
   - 
   - 

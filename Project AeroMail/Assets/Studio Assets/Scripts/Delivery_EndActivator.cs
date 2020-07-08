@@ -3,7 +3,6 @@
 public class Delivery_EndActivator : MonoBehaviour
 {
     //--- Public Variables ---//
-    public Renderer m_thisRenderer;
     public GameObject m_connectedZone;
 
 
@@ -11,10 +10,6 @@ public class Delivery_EndActivator : MonoBehaviour
     //--- Unity Methods ---//
     private void Awake()
     {
-        // Hide the renderer so it doesn't show up in game
-        // Need it in the editor for visibility
-        m_thisRenderer.enabled = false;
-
         // Also hide the zone at the beginning as well
         m_connectedZone.SetActive(false);
     }

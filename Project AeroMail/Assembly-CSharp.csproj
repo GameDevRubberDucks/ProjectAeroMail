@@ -70,6 +70,7 @@
     <Compile Include="Assets\Studio Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Camera_Collider.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Camera_Follow.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\CloudGenerator_Controller.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_End.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_EndActivator.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Helpers.cs" />
@@ -77,10 +78,14 @@
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_Start.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Delivery_UI.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\HouseGenerator_Controller.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\Menu_Controller.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\PlayerControllerPhysicsScript.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\PlayerControllerScript.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Player_Control.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Player_Particles.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\Respawn_PlayerController.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\Respawn_Point.cs" />
+    <Compile Include="Assets\Studio Assets\Scripts\Respawn_Zone.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Sample.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\Vegetation_ShaderController.cs" />
     <Compile Include="Assets\Studio Assets\Scripts\VentScript.cs" />
