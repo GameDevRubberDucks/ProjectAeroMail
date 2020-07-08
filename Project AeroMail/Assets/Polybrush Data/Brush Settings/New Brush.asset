@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: New Brush
   m_EditorClassIdentifier: 
   brushRadiusMin: 0.001
-  brushRadiusMax: 100
-  _radius: 46
-  _falloff: 0.21
+  brushRadiusMax: 10
+  _radius: 0.01
+  _falloff: 0.01
   _strength: 1
   _curve:
     serializedVersion: 2
@@ -41,4 +41,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  allowNonNormalizedFalloff: 0
+  allowNonNormalizedFalloff: 1
