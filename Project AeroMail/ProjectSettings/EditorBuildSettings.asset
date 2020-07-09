@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Studio Assets/Scenes/Menu.unity
     guid: e015d8bb620d6c64e9bf4ac12c6f755b
   - enabled: 1
-    path: Assets/Studio Assets/Scenes/Dan Island.unity
-    guid: a9fca78c91251f94eaead10c9a9838bc
+    path: Assets/Studio Assets/Scenes/Main_Combined.unity
+    guid: 101d26ff0b3f71545a636626704bd019
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 847dfbc7ef62bad4595b314275768508,
       type: 2}

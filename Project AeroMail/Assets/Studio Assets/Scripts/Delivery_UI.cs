@@ -122,6 +122,7 @@ public class Delivery_UI : MonoBehaviour
     public void OnExitToMenu()
     {
         // Load the menu scene
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("Menu");
     }
 }
