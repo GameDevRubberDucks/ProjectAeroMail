@@ -18,6 +18,8 @@ public class Player_Control : MonoBehaviour
     float lerpTimer = 0.0f;
     public float boostSpeedMultiplier = 2.0f;
     public float boostYawDivisor = 2.0f;
+    public float slowSpeedMultiplier = 0.5f;
+    public float slowYawMultiplier = 2.0f;
 
 
 
@@ -47,15 +49,25 @@ public class Player_Control : MonoBehaviour
         InputCheck();
 
         // Speedboost while holding shift
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
             movementSpeed = baseMoveSpeed * boostSpeedMultiplier;
             yawSpeed = baseYawSpeed / boostYawDivisor;
         }
         else
         {
-            movementSpeed = baseMoveSpeed;
-            yawSpeed = baseYawSpeed;
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+            {
+                // Slow movement
+                movementSpeed = baseMoveSpeed * slowSpeedMultiplier;
+                yawSpeed = baseYawSpeed * slowYawMultiplier;
+            }
+            else
+            {
+                // Normal movement speed
+                movementSpeed = baseMoveSpeed;
+                yawSpeed = baseYawSpeed;
+            }
         }
 
         // Toggle the y-axis inversion by pressing 'I'
