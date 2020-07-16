@@ -71,6 +71,7 @@ public class HouseGenerator_Controller : MonoBehaviour
         string path = m_saveLocation;
         string filename = houseObj.name + ".prefab";
         string fullFilePath = path + filename;
+#if UNITY_EDITOR
         string uniquePath = AssetDatabase.GenerateUniqueAssetPath(fullFilePath);
 
         // Save to a prefab file and ensure the object in the scene becomes an instance
@@ -78,15 +79,18 @@ public class HouseGenerator_Controller : MonoBehaviour
 
         if (_showDialog)
             EditorUtility.DisplayDialog("Save Succesful For [" + filename + "]", "The object has been succesfully saved as a prefab at [" + fullFilePath + "]", "OK");
-    }
+#endif
+        }
 
     public void SaveAllStructures()
     {
         for (int i = 0; i < m_spawnedStructures.Count; i++)
             SaveIndividualStructure(i, false);
 
+#if UNITY_EDITOR
         // Show a dialog for all of them at once, instead of one at a time
         EditorUtility.DisplayDialog("Save Succesful For All [" + m_spawnedStructures.Count + "] Objects", "The objects have been succesfully saved as individual prefabs", "OK");
+#endif
     }
 
     public int WrapIdx(int _idx)
